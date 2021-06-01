@@ -30,15 +30,9 @@ type Props = {
 }
 
 const PostTemplate: React.FC<Props> = ({ data }) => {
-  console.log(data)
   const post = data.markdownRemark
   return (
-    <Layout>
-      <Seo
-        title={`Your Blog Name - ${post.frontmatter.title}`}
-        author={post.frontmatter.author}
-      />
-      <Helmet title={`Your Blog Name - ${post.frontmatter.title}`} />
+    <Layout title={post.frontmatter.title} author={post.frontmatter.author}>
       <div className="post-container">
         <div className="post-head">
           <span className="post-title">

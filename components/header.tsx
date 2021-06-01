@@ -4,9 +4,8 @@ import PropTypes from "prop-types"
 import { StaticImage } from "gatsby-plugin-image"
 import "./header.less"
 
-type HeaderProps = {
-  siteTitle: string
-}
+// type HeaderProps = {
+// }
 
 type NavItem = {
   url: string,
@@ -17,11 +16,12 @@ type Nav = {
   site: {
     siteMetadata: {
       nav: Array<NavItem>,
+      title: String,
     }
   }
 }
 
-const Header = ({ siteTitle }: HeaderProps): React.ReactElement => {
+const Header = (): React.ReactElement => {
   const data: Nav = useStaticQuery(graphql`
     query {
       site {
@@ -30,6 +30,7 @@ const Header = ({ siteTitle }: HeaderProps): React.ReactElement => {
             url
             title
           }
+          title
         }
       }
     }
@@ -44,7 +45,7 @@ const Header = ({ siteTitle }: HeaderProps): React.ReactElement => {
     <header className="header">
       <div className="title">
         <h1>
-          <Link to="/" > {siteTitle} </Link>
+          <Link to="/" > {data.site.siteMetadata.title} </Link>
         </h1>
       </div>
       <div className="nav">
