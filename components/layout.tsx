@@ -19,15 +19,13 @@ const Layout: React.FC<Props> = ({ title, author, children }) => {
     query {
       site {
         siteMetadata {
-          title
           icpTxt
           copyleft
         }
       }
     }
   `)
-  const pageTitle = (data.site.siteMetadata?.title || "Title") + (title ? " - " + title : "")
-
+  const pageTitle =title || ""
   return (
     <>
       <Seo
