@@ -53,7 +53,7 @@ const ContentTable = (): React.ReactElement => {
           .filter(post => post.node.frontmatter.title.length > 0)
           .map(({ node }) => {
             return (
-              <li className="post-item">
+              <li key={node.id} className="post-item">
                 <div className='item-info'>
                   <span className="item-time">
                     {node.frontmatter.date}
