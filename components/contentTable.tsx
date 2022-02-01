@@ -6,42 +6,58 @@ import { useStaticQuery, graphql, Link } from "gatsby"
 type Props = {
   allMarkdownRemark: {
     edges: Array<Post>,
+  },
+  site: {
+    siteMetadata: {
+      author: string
+    }
   }
 }
 
 type Post = {
   node: {
     id: string,
-    excerpt: string,
     frontmatter: {
       title: string,
       author: string,
       date: string,
       path: string,
     },
+    parent: {
+      relativePath: string
+    }
   },
 }
 
 const ContentTable = (): React.ReactElement => {
   const data: Props = useStaticQuery(graphql`
-      query IndexQuery {
-        allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
-          edges {
-            node {
-              excerpt(pruneLength: 250)
-              id
-              frontmatter {
-                title
-                date(formatString: "MMMM DD, YYYY")
-                path
-                author
+    query IndexQuery {
+      site {
+        siteMetadata {
+          author
+        }
+      }
+      allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
+        edges {
+          node {
+            parent {
+              ... on File {
+                relativePath
               }
+            }
+            id
+            frontmatter {
+              title
+              date(formatString: "MMMM DD, YYYY")
+              path
+              author
             }
           }
         }
       }
-    `
-  )
+    }
+  `
+)
 
   const posts = data.allMarkdownRemark.edges
 
@@ -52,6 +68,8 @@ const ContentTable = (): React.ReactElement => {
         {posts
           .filter(post => post.node.frontmatter.title.length > 0)
           .map(({ node }) => {
+            const author = node.frontmatter.author || data.site.siteMetadata.author
+            const path = node.frontmatter.path || `/post/${node.parent.relativePath.replace(/\.md$/, "")}`
             return (
               <li key={node.id} className="post-item">
                 <div className='item-info'>
@@ -59,11 +77,11 @@ const ContentTable = (): React.ReactElement => {
                     {node.frontmatter.date}
                   </span>
                   <span className="item-author">
-                    {node.frontmatter.author}
+                    {author}
                   </span>
                 </div>
                 <span className="item-title">
-                  <Link to={node.frontmatter.path}>{node.frontmatter.title}</Link>
+                  <Link to={path}>{node.frontmatter.title}</Link>
                 </span>
               </li>
             )

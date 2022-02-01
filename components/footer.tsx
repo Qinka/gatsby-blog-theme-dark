@@ -8,11 +8,13 @@ type FooterProps = {
   copyleft: string,
 }
 const Footer = ({ icpTxt, copyleft }: FooterProps): React.ReactElement => {
-  const icpInfo = icpTxt ? (<a href="http://www.beian.miit.gov.cn/">{icpTxt}</a>) : (<></>)
+  const icpInfo = icpTxt ? (<a className="icp-info" href="http://www.beian.miit.gov.cn/">{icpTxt}</a>) : (<></>)
   return (
     <footer className="footer">
-      <span>© {new Date().getFullYear()} {` `} {copyleft}</span><br />
-      {icpInfo}
+      <div className="content">
+          <span>© {new Date().getFullYear()} {` `} {copyleft}</span><br />
+          {icpInfo}
+      </div>
     </footer>
   )
 }

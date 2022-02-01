@@ -24,15 +24,6 @@
       display: inline;
       font-size: inherit;
     }
-
-    h1::before {
-      background: url(../images/wareless.png) no-repeat;
-      content: "";
-      float: left;
-      background-size: 2em 1em;
-      width: 2.5em;
-      height: 1em;
-    }
   }
 
   .nav {
@@ -51,11 +42,19 @@
       height: auto;
       margin-bottom: .35em;
       ul {
-        list-style-type: none;
+        list-style: none;
         margin: 0;
         margin-left: 1em;
         li {
           margin: 0;
+          list-style: none;
+          float: left;
+        }
+        li + li::before {
+          content: "|";
+          padding-left: 0.6em;
+          padding-right: 0.2em;
+          color:lightsteelblue;
         }
       }
     }

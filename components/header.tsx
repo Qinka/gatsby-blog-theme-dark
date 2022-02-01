@@ -37,9 +37,7 @@ const Header = (): React.ReactElement => {
   `)
 
   const nav = data.site.siteMetadata.nav
-    .map((v) => (<li>
-      <Link to={v.url} > {v.title} </Link>
-    </li>))
+    .map((v) => (<li key={v.title}> <Link to={v.url} key={v.title} > {v.title} </Link> </li>))
 
   return (
     <header className="header">

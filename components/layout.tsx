@@ -14,7 +14,7 @@ type Props = {
   children: any,
 }
 
-const Layout: React.FC<Props> = ({ title, author, children }) => {
+const Layout: React.FC<Props & React.HTMLProps<HTMLDivElement>> = ({ title, author, children, ... props }) => {
   const data = useStaticQuery(graphql`
     query {
       site {
@@ -27,7 +27,7 @@ const Layout: React.FC<Props> = ({ title, author, children }) => {
   `)
   const pageTitle =title || ""
   return (
-    <>
+    <div {...props}>
       <Seo
         title={pageTitle}
         author={author}
@@ -37,7 +37,7 @@ const Layout: React.FC<Props> = ({ title, author, children }) => {
         <main>{children}</main>
       </div>
       <Footer icpTxt={data.site.siteMetadata?.icpTxt || null} copyleft={data.site.siteMetadata?.copyleft || ``} />
-    </>
+    </div>
   )
 }
 
@@ -45,4 +45,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout;
+export default Layout

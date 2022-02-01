@@ -4,9 +4,11 @@ import { graphql } from "gatsby"
 import Layout from "./components/layout"
 import Seo from "./components/seo"
 import FormatHtml from "./components/format-html"
+
 import "./post.less"
 
 type Post = {
+  id: string,
   html: React.ReactNode,
   fields: {
     slug: string,
@@ -21,6 +23,11 @@ type Post = {
 type Props = {
   data: {
     markdownRemark: Post,
+    site: {
+      siteMetadata: {
+        author: string
+      }
+    }
   },
   pageContext: {
     slug: string,
@@ -30,9 +37,11 @@ type Props = {
 }
 
 const PostTemplate: React.FC<Props> = ({ data }) => {
+  // console.log({data})
   const post = data.markdownRemark
+  const author = post.frontmatter.author || data.site.siteMetadata.author
   return (
-    <Layout title={post.frontmatter.title} author={post.frontmatter.author}>
+    <Layout title={post.frontmatter.title} author={author}>
       <div className="post-container">
         <div className="post-head">
           <span className="post-title">
@@ -40,7 +49,7 @@ const PostTemplate: React.FC<Props> = ({ data }) => {
           </span>
           <div className="post-info">
             <span className="post-auth">
-              {post.frontmatter.author}
+              {author}
             </span>
             <span> | </span>
             <span>
@@ -58,9 +67,15 @@ const PostTemplate: React.FC<Props> = ({ data }) => {
 export default PostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostByPath($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+  query BlogPostByPath($id: String!) {
+    site {
+      siteMetadata {
+        author
+      }
+    }
+    markdownRemark(id: {eq: $id }) {
       html
+      id
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
