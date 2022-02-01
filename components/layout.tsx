@@ -14,29 +14,37 @@ type Props = {
   children: any,
 }
 
-const Layout: React.FC<Props & React.HTMLProps<HTMLDivElement>> = ({ title, author, children, ... props }) => {
+const Layout: React.FC<Props & React.HTMLProps<HTMLDivElement>> = ({ title, author, children, ...props }) => {
   const data = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
           icpTxt
           copyleft
+          sponsor {
+            pre
+            url
+          }
         }
       }
     }
   `)
-  const pageTitle =title || ""
+
+  const sponsor = data.site.siteMetadata.sponsor !== null ?
+    data.site.siteMetadata.sponsor : undefined
+
+  const pageTitle = title || ""
   return (
-    <div {...props}>
+    <div className="frame">
       <Seo
         title={pageTitle}
         author={author}
       />
       <Header siteTitle={pageTitle} />
       <div className="layout">
-        <main>{children}</main>
+        <main {...props}>{children}</main>
       </div>
-      <Footer icpTxt={data.site.siteMetadata?.icpTxt || null} copyleft={data.site.siteMetadata?.copyleft || ``} />
+      <Footer icpTxt={data.site.siteMetadata?.icpTxt || null} copyleft={data.site.siteMetadata?.copyleft || ``} sponsor={sponsor} />
     </div>
   )
 }

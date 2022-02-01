@@ -1,5 +1,11 @@
-
 @import url("../fonts/font.less");
+
+.frame {
+  flex-direction: column;
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 8rem;
+}
 
 //Specific
 .layout {
@@ -8,7 +14,6 @@
   padding: 0 1.0875rem 1.45rem;
   // margin-bottom: 100px;
   margin-top: 50px;
-  min-height: calc(100vh - 200px - 1.45rem - 40px);
 }
 
 .link-without-underline {
@@ -22,6 +27,8 @@ html {
   font: 112.5%/1.45em georgia, serif, sans-serif;
   box-sizing: border-box;
   overflow-y: scroll;
+
+  height: 100%;
 
   [type="button"] {
     -webkit-appearance: button;
@@ -40,6 +47,12 @@ body {
   -ms-font-feature-settings: "kern", "liga", "clig", "calt";
   -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
   font-feature-settings: "kern", "liga", "clig", "calt";
+  height: 100%;
+}
+
+#___gatsby,
+#gatsby-focus-wrapper {
+  height: 100%;
 }
 
 article {
@@ -214,7 +227,8 @@ img {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
-  margin-bottom: 1.45rem;;
+  margin-bottom: 1.45rem;
+  ;
 }
 
 svg {
