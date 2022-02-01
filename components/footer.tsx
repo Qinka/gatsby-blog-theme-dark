@@ -21,8 +21,6 @@ const Sponsor = ({ url, pre }: SponsorInfo): React.ReactElement => {
     }
   `)
 
-  console.log(data)
-
   return (
     <div className="sponsor">
       {pre !== undefined ? (<span className="prefix"> {pre} </span>) : (<></>)}

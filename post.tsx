@@ -37,7 +37,6 @@ type Props = {
 }
 
 const PostTemplate: React.FC<Props> = ({ data }) => {
-  // console.log({data})
   const post = data.markdownRemark
   const author = post.frontmatter.author || data.site.siteMetadata.author
   return (
