@@ -21,17 +21,10 @@ const Layout: React.FC<Props & React.HTMLProps<HTMLDivElement>> = ({ title, auth
         siteMetadata {
           icpTxt
           copyleft
-          sponsor {
-            pre
-            url
-          }
         }
       }
     }
   `)
-
-  const sponsor = data.site.siteMetadata.sponsor !== null ?
-    data.site.siteMetadata.sponsor : undefined
 
   const pageTitle = title || ""
   return (
@@ -44,7 +37,7 @@ const Layout: React.FC<Props & React.HTMLProps<HTMLDivElement>> = ({ title, auth
       <div className="layout">
         <main {...props}>{children}</main>
       </div>
-      <Footer icpTxt={data.site.siteMetadata?.icpTxt || null} copyleft={data.site.siteMetadata?.copyleft || ``} sponsor={sponsor} />
+      <Footer icpTxt={data.site.siteMetadata?.icpTxt || ``} copyleft={data.site.siteMetadata?.copyleft || ``} />
     </div>
   )
 }
