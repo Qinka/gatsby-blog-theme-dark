@@ -40,7 +40,7 @@ const PostTemplate: React.FC<Props> = ({ data }) => {
   const post = data.markdownRemark
   const author = post.frontmatter.author || data.site.siteMetadata.author
   return (
-    <Layout title={post.frontmatter.title} author={author}>
+    <Layout className="post" title={post.frontmatter.title} author={author}>
       <div className="post-container">
         <div className="post-head">
           <span className="post-title">
