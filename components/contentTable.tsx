@@ -39,7 +39,7 @@ const ContentTable = (): React.ReactElement => {
       }
       allMarkdownRemark(
         filter: { fields: { draft: { eq: false } } }
-        sort: { order: DESC, fields: [frontmatter___date] }
+        sort: { frontmatter: {date: DESC }}
       ) {
         edges {
           node {
